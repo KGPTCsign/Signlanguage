@@ -20,11 +20,16 @@ from django.urls import path
 from sign_language_app.views import *
 
 urlpatterns = [
-    path('login',Login_View.as_view(), name='login'),
-    path('replay',Send_replay.as_view(), name='replay'),
+    path('',Login_View.as_view(), name='login'),
+   
     path('complaints',View_Complaints.as_view(), name='complaints'),
     path('feedback',View_Feedback.as_view(), name='feedback'),
     path('view_user',View_User.as_view(),name='view_user'),
+    path('admin_dash', admin_dash.as_view(), name='admin_dash'),
+     path('Approve_user/<int:login_id>/', Approve_user.as_view(), name='Approve_user'),
+    path('Reject_user/<int:login_id>/', Reject_user.as_view(), name='Reject_user'),
+    path('send_replay/<int:id>/',send_replay.as_view(), name='send_replay'),
+    #
 
     #################################################################
 

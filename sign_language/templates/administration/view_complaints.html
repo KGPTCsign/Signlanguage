@@ -1,0 +1,34 @@
+<html>
+    <body>
+  
+
+      {% csrf_token %}
+    <table border="1"cellpadding="10" cellspace="0">
+        <tr>
+            <td>Name</td>
+            <td>complaint</td>
+            <td>date</td>
+            <td>action</td>
+        </tr>
+        {% for u in user %}
+        <tr>       
+            <td>{{u.userid.name}}</td>
+            <td>{{u.complaint}}</td>
+            <td>{{u.createdAt}}</td>
+           <form method="post" action="{% url 'send_replay' u.id %}">
+            {% csrf_token %}
+
+        <td>
+                <input type="text" name="replay">
+                <input type="submit"value="replay"> 
+                    
+
+            </td> 
+            </form>  
+        </tr>
+        {% endfor %}
+
+    </table>
+    </body>
+
+</html>        

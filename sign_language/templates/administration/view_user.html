@@ -1,0 +1,27 @@
+<html>
+    <body>
+        <form method="POST">
+            <table border="1" cellpadding="10" cellspacing="0">
+                <tr>
+                    <td>Name</td>
+                    <td>Email</td>
+                    <td>Gender</td>
+                    <td>Contact</td>
+                    <td>Action</td>
+                </tr>
+                {% for u in user %}
+                    <tr>
+                        <td>{{ u.name }}</td>
+                        <td>{{ u.email }}</td>
+                        <td>{{ u.gender }}</td>
+                        <td>{{ u.contactno }}</td>
+                        <td>
+                            <a href="Approve_user/{{u.loginid.id}}">Approve</a>
+                            <a href="Reject_user/{{u.loginid.id}}">Reject</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </body>
+</html>
