@@ -3,17 +3,26 @@
 <form>
     <table border="1"cellpadding="10" cellspace="0">
         <tr>
+            <td>Name</td>
             <td>complaint</td>
             <td>Date</td>
             <td>Replay</td>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td> 
-        </tr>
+        {% for u in user %}
 
+        <tr>
+            <td>{{u.userid.name}}</td>
+            <td>{{u.complaint}}</td>
+            <td>{{u.createdAt}}</td> 
+            <td>{{u.reply}}</td>
+           
+        </tr>
+        {% endfor %}
+        
     </table>
+    <a href="send_comp">send_complaint</a>
+
+       
 </form>
     </body>
 

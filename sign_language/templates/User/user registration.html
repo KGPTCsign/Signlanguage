@@ -5,15 +5,16 @@
 <h2>Registration Form</h2>
 <body>
     </center>
-<form >
+<form method="post">
+    {% csrf_token %}
     <label for="name">name</label>
-    <input type="text"id="name"name="name"required><br><br>
+    <input type="text"id="name"name="name" required><br><br>
     <label for="email">Email</label>
     <input type="email"id="email"name="email"required><br><br>
     <label for="password">password</label>
     <input type="password"id="password"name="password"required><br><br>
     <label for="contact">contact</label>
-    <input type="tel"id="contact"name="contact"required><br><br>
+    <input type="tel"id="contact"name="contactno"required><br><br>
     <label>Gender</label>
     <input type="radio"name="gender"value=male>male
     <input type="radio"name="gender"value=female>female

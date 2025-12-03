@@ -36,4 +36,6 @@ urlpatterns = [
     path('user_complaints',Send_Complaints.as_view(),name='user_complaints'),
     path('user_feedback',Send_Feedback.as_view(),name='user_feedback'),
     path('user_registration',User_Registration.as_view(),name='user_registration'),
+    path('userdash',UserDash.as_view(),name="userdash"),
+    path('send_comp',Send_Comp.as_view(),name='send_comp'),
 ]

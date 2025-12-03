@@ -15,9 +15,17 @@
                         <td>{{ u.email }}</td>
                         <td>{{ u.gender }}</td>
                         <td>{{ u.contactno }}</td>
+
                         <td>
-                            <a href="Approve_user/{{u.loginid.id}}">Approve</a>
+                            {% if u.loginid.usertype == "user" %}
                             <a href="Reject_user/{{u.loginid.id}}">Reject</a>
+                            {% elif u.loginid.usertype == "rejected" %}
+                             <a href="Approve_user/{{u.loginid.id}}">Approve</a>
+                            {% else %}
+                             <a href="Approve_user/{{u.loginid.id}}">Approve</a>
+                            <a href="Reject_user/{{u.loginid.id}}">Reject</a>
+                            {% endif %}
+                           
                         </td>
                     </tr>
                 {% endfor %}

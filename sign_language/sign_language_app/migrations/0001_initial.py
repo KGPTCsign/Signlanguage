@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
                 ('username', models.CharField(blank=True, max_length=100, null=True)),
                 ('password', models.CharField(blank=True, max_length=100, null=True)),
                 ('usertype', models.CharField(blank=True, max_length=100, null=True)),
+                ('phoneNo', models.CharField(blank=True, max_length=15, null=True)),
             ],
         ),
         migrations.CreateModel(

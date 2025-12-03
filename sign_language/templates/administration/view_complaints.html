@@ -8,7 +8,8 @@
             <td>Name</td>
             <td>complaint</td>
             <td>date</td>
-            <td>action</td>
+            <td>replay</td>
+
         </tr>
         {% for u in user %}
         <tr>       
@@ -19,9 +20,13 @@
             {% csrf_token %}
 
         <td>
+            {% if u.reply %}
+            {{u.reply}}
+            {% else%}
                 <input type="text" name="replay">
                 <input type="submit"value="replay"> 
                     
+                {%endif%}
 
             </td> 
             </form>  

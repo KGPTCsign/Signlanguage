@@ -5,6 +5,7 @@ class LoginTable(models.Model):
     username=models.CharField(max_length=100,null=True,blank=True)
     password=models.CharField(max_length=100,null=True,blank=True)
     usertype=models.CharField(max_length=100,null=True,blank=True)
+    phoneNo=models.CharField(max_length=100,null=True,blank=True)
 
 class UserTable(models.Model):
     name=models.CharField(max_length=100,null=True,blank=True)

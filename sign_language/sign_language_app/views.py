@@ -1,7 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 
+from sign_language_app.forms import *
 from sign_language_app.models import *
 
 # Create your views here.
@@ -14,15 +15,14 @@ class Login_View(View):
     def post(self,request):
         username = request.POST.get('username')
         password = request.POST.get('password')
+        phoneNo = request.POST.get('phoneNo')
         try:
-            obj = LoginTable.objects.get(username = username,password = password)
+            obj = LoginTable.objects.get(username=username,password=password)
             request.session['user_id'] = obj.id
             if obj.usertype == 'admin':
                 return HttpResponse('''<script>alert('Login successful');window.location='/admin_dash '</script>''')  
-            elif obj.user_type == 'teacher':
-                return HttpResponse('''<script>alert('Login successful');window.location='/teacherhome/ '</script>''')
-            elif obj.user_type == 'student':
-              return HttpResponse('''<script>alert('Login successful');window.location='/'</script>''')  
+            elif obj.usertype == 'user':
+              return HttpResponse('''<script>alert('Login successful');window.location='/userdash'</script>''')  
         except LoginTable.DoesNotExist:
             return HttpResponse('''<script>alert('Invalid username or password');window.location='/'</script>''')
        
@@ -37,7 +37,7 @@ class send_replay(View):
         reply_text = request.POST.get('replay')
         complaint.reply = reply_text
         complaint.save()
-        return HttpResponse('''<script>alert('Invalid username or password');window.location='/complaints'</script>''')
+        return HttpResponse('''<script>alert('replyed succesfully');window.location='/complaints'</script>''')
        
    
         
@@ -55,15 +55,39 @@ class View_User(View):
     
 class Send_Complaints(View):
     def get(self,request):
-        return render(request,'User/send_complaint.html')
+        c=ComplaintTable.objects.all()
+        return render(request,'User/send_complaint.html',{'user':c})
+    
+class Send_Comp(View):
+    def get(self,request):
+        c=ComplaintTable.objects.all()
+        return render(request,'User/send_comp.html',{'user':c})
+    def post(self,request):
+        complaint=request.POST['complaint']
+        obj=ComplaintTable()
+        obj.complaint=complaint
+        obj.userid=UserTable.objects.get(loginid_id=request.session['user_id'])
+        obj.reply='Pending'
+        obj.save()
+        return redirect('user_complaints')
 
 class Send_Feedback(View):
     def get(self,request):
-        return render(request,'User/send_feedback.html')
+        c=FeedbackTable.objects.all()
+        return render(request,'User/send_feedback.html',{'user':c})
     
 class User_Registration(View):
     def get(self,request):
         return render(request,'User/user registration.html')
+    def post(self,request):
+        c=UserForm(request.POST)
+        if c.is_valid():
+            reg=c.save(commit=False)
+            user=LoginTable.objects.create(username=reg.email, password=request.POST['password'], usertype='pending')
+            reg.loginid=user
+            reg.save()
+        return HttpResponse('''<script>alert('Registered succesfully');window.location='/'</script>''')
+
     
 class Approve_user(View):
     def get(self,request,login_id):
@@ -72,10 +96,13 @@ class Approve_user(View):
         print(obj,'???????????')
         obj.usertype = "user"
         obj.save()
-        return HttpResponse('''<script>alert("Successfully Approved");window.location="/admin_dash";</script>''')
+        return HttpResponse('''<script>alert("Successfully Approved");window.location="/view_user";</script>''')
 class Reject_user(View):
     def get(self,request,login_id):
         obj=LoginTable.objects.get(id=login_id)
         obj.usertype = "rejected"
         obj.save()
-        return HttpResponse('''<script>alert("Successfully Rejected");window.location="/admin_dash";</script>''')
+        return HttpResponse('''<script>alert("Successfully Rejected");window.location="/view_user";</script>''')
+class UserDash(View):
+    def get(self,request):
+        return render(request,'User/userdash.html')
