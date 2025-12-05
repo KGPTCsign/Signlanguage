@@ -1,7 +1,7 @@
-<html>
-    <body>
-<form>
-    <table border="1"cellpadding="10" cellspace="0">
+{% extends 'administration/admindash.html' %}
+{% block body %}
+<div class="container-fluid d-flex justify-content-center ">
+            <table class="table table-info mt-5" style="width: 900px;">
         <tr>
             <td>Name</td>
             <td>Feedback</td>
@@ -16,7 +16,6 @@
         {% endfor %}
 
     </table>
-</form>
-    </body>
+</div>
+ {% endblock %}
 
-</html>

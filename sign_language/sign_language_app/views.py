@@ -55,17 +55,18 @@ class View_User(View):
     
 class Send_Complaints(View):
     def get(self,request):
-        c=ComplaintTable.objects.all()
+        c=ComplaintTable.objects.filter(userid__loginid_id=request.session['user_id'])
         return render(request,'User/send_complaint.html',{'user':c})
     
 class Send_Comp(View):
     def get(self,request):
-        c=ComplaintTable.objects.all()
-        return render(request,'User/send_comp.html',{'user':c})
+        # c=ComplaintTable.objects.filter(userid__loginid_id=request.session['user_id'])
+        return render(request,'User/send_comp.html')
     def post(self,request):
         complaint=request.POST['complaint']
         obj=ComplaintTable()
         obj.complaint=complaint
+        print(request.session['user_id'])
         obj.userid=UserTable.objects.get(loginid_id=request.session['user_id'])
         obj.reply='Pending'
         obj.save()
@@ -73,9 +74,23 @@ class Send_Comp(View):
 
 class Send_Feedback(View):
     def get(self,request):
-        c=FeedbackTable.objects.all()
+        c=FeedbackTable.objects.filter(userid__loginid_id=request.session['user_id'])
         return render(request,'User/send_feedback.html',{'user':c})
     
+class Send_feed(View):
+    def get(self,request):
+         return render(request,'User/send_feed.html')
+    def post(self,request):
+        feedback=request.POST['feedback']
+        obj=FeedbackTable()
+        obj.feedback=feedback
+        print(request.session['user_id'])
+        obj.userid=UserTable.objects.get(loginid_id=request.session['user_id'])
+        obj.reply='Pending'
+        obj.save()
+        return redirect('user_feedback')
+
+
 class User_Registration(View):
     def get(self,request):
         return render(request,'User/user registration.html')

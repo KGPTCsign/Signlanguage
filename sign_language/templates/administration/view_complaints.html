@@ -1,9 +1,7 @@
-<html>
-    <body>
-  
-
-      {% csrf_token %}
-    <table border="1"cellpadding="10" cellspace="0">
+{% extends 'administration/admindash.html' %}
+{% block body %}
+<div class="container-fluid d-flex justify-content-center ">
+            <table class="table table-info mt-5" style="width: 900px;">
         <tr>
             <td>Name</td>
             <td>complaint</td>
@@ -16,24 +14,25 @@
             <td>{{u.userid.name}}</td>
             <td>{{u.complaint}}</td>
             <td>{{u.createdAt}}</td>
-           <form method="post" action="{% url 'send_replay' u.id %}">
-            {% csrf_token %}
+            <form method="post" action="{% url 'send_replay' u.id %}">
+                {% csrf_token %}
+                
+                <td>
+                    {% if u.reply == "Pending" %}
 
-        <td>
-            {% if u.reply %}
-            {{u.reply}}
-            {% else%}
-                <input type="text" name="replay">
-                <input type="submit"value="replay"> 
+                    <input type="text" name="replay">
+                    <input type="submit"value="replay">
+
+                    {% else%}
+                    {{u.reply}}
                     
-                {%endif%}
-
+                    {%endif%}
+                    
             </td> 
             </form>  
         </tr>
         {% endfor %}
 
     </table>
-    </body>
-
-</html>        
+ 
+    {% endblock %}

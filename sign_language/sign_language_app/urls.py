@@ -38,4 +38,6 @@ urlpatterns = [
     path('user_registration',User_Registration.as_view(),name='user_registration'),
     path('userdash',UserDash.as_view(),name="userdash"),
     path('send_comp',Send_Comp.as_view(),name='send_comp'),
+    path('send_feed',Send_feed.as_view(),name='send_feed'),
+
 ]

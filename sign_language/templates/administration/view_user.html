@@ -1,13 +1,13 @@
-<html>
-    <body>
-        <form method="POST">
-            <table border="1" cellpadding="10" cellspacing="0">
+{% extends 'administration/admindash.html' %}
+{% block body %}
+<div class="container-fluid d-flex justify-content-center ">
+            <table class="table table-info mt-5" style="width: 900px;">
                 <tr>
-                    <td>Name</td>
-                    <td>Email</td>
-                    <td>Gender</td>
-                    <td>Contact</td>
-                    <td>Action</td>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <th>Contact</th>
+                    <th>Action</th>
                 </tr>
                 {% for u in user %}
                     <tr>
@@ -18,18 +18,17 @@
 
                         <td>
                             {% if u.loginid.usertype == "user" %}
-                            <a href="Reject_user/{{u.loginid.id}}">Reject</a>
+                            <a href="Reject_user/{{u.loginid.id}}" class="btn btn-danger">Reject</a>
                             {% elif u.loginid.usertype == "rejected" %}
-                             <a href="Approve_user/{{u.loginid.id}}">Approve</a>
+                             <a href="Approve_user/{{u.loginid.id}}" class="btn btn-primary">Approve</a>
                             {% else %}
-                             <a href="Approve_user/{{u.loginid.id}}">Approve</a>
-                            <a href="Reject_user/{{u.loginid.id}}">Reject</a>
+                             <a href="Approve_user/{{u.loginid.id}}" class="btn btn-primary">Approve</a>
+                            <a href="Reject_user/{{u.loginid.id}}" class="btn btn-danger">Reject</a>
                             {% endif %}
                            
                         </td>
                     </tr>
                 {% endfor %}
             </table>
-        </form>
-    </body>
-</html>
+            </div>
+      {% endblock %}

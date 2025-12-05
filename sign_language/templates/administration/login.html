@@ -1,18 +1,64 @@
 <html>
 <head>
-    <title>login Form</title>
-</head><center>
-<h2>Login Form</h2>
+    <style>
+       
+    body{
+      font-family: 'Times New Roman', Times, serif;
+background: linear-gradient(to right,pink,yellow);   
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+margin: 0;     
+        }
+.container{
+    background-color: antiquewhite;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px black;
+    width: 300px;
+
+}
+h2{
+    text-align: center;
+    top: 30px;
+}
+input{
+    border-radius: 8px;
+    padding: 8px;
+    margin-top: 10px;
+    
+}
+button{
+    padding: 8px;
+    border-radius: 8px;
+    margin-left: 100px;  
+    margin-bottom: 20px;
+    width: 100px;
+background: linear-gradient(to right,pink,yellow);   
+
+}
+
+p{
+margin-left: 50px;
+}
+
+    </style>
 <body>
-    </center>
+
+<div class="container">
+
 <form method="post" action="">
     {% csrf_token %}
+<h2>Login Form</h2>
+
     <label for="name">Username</label>
-    <input type="text"id="name"name="username"required><br><br>
-    <label for="password">password</label>
-    <input type="password"id="password"name="password"required><br><br>
-    <input type="submit"value="login">
-    <a href="/user_registration">Register Here</a>
+    <input type="text"id="name"name="username" placeholder="enter your name"><br><br>
+    <label for="password">Password</label>
+    <input type="password"id="password"name="password" placeholder="enter your password"><br><br>
+    <button>Login</button><br>
+        <p>Don't have an account?<a href="/user_registration">  Register</a></p>
 </form>
-</body>
-</html>
+</div>
+
+</body
